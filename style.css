@@ -1,0 +1,22 @@
+body{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+#top{
+    width: 100%;
+    background-color: antiquewhite;
+}
+
+#mid{
+    width: 100%;
+    height: 60%;
+    background-color: wheat;
+}
+
+#bottom{
+    width: 100%;
+    background-color: black;
+}
