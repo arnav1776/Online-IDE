@@ -32,6 +32,9 @@ function init(){
     output.setAttribute("id","output");
     bottomDiv.appendChild(output);
 
+    var button = document.createElement("button");
+    button.innerText = "Submit"
+    bottomDiv.appendChild(button);
 }
 
 init();
