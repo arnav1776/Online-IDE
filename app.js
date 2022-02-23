@@ -1,42 +1,52 @@
-function init(){
-    var topDiv = document.createElement("div");
-    topDiv.setAttribute("id","top");
+var compilebtn = document.getElementById('compilebtn');
+var languages = document.querySelector('#languages');
+var textbox = document.getElementById('textbox');
+var outputResult = document.getElementById('outputResult');
+var langCode;
 
-    var midDiv = document.createElement("div");
-    midDiv.setAttribute("id","mid");
+languages.addEventListener('click', function()
+{
+    langCode = languages.options[languages.selectedIndex].value;
+})
 
-    var bottomDiv = document.createElement("div");
-    bottomDiv.setAttribute("id","bottom");
+compilebtn.addEventListener('click', function(){
 
-    var body=document.body;
-    body.appendChild(topDiv);
-    body.appendChild(midDiv);
-    body.appendChild(bottomDiv);
+    var request = new XMLHttpRequest();
+    request.open('POST', 'https://codequotient.com/api/executeCode');
+    request.setRequestHeader("Content-Type", "application/json");
+    request.send(JSON.stringify({code:textbox.value, langId:langCode}));
 
-    var heading = document.createElement("h1");
-    heading.innerText = "Online-IDE";
-    var lang = document.createElement("h3");
-    lang.innerText = "Select your language";
-    topDiv.appendChild(heading);
-    topDiv.appendChild(lang);
+    request.addEventListener('load', function(event){
+        var codeId = JSON.parse(event.target.responseText)
+        var mainCodeId = codeId.codeId;
 
-    var codeArea = document.createElement("textarea");
-    codeArea.setAttribute("placeholder","Enter your code here");
-    codeArea.setAttribute("class","box");
-    codeArea.setAttribute("id","codeArea");
-    midDiv.appendChild(codeArea);
+        setTimeout(function(){
+        getRequestInterval(mainCodeId)}, 2000);
+    })
+    clearInterval(setTimeout);   
+    })
 
-    var output = document.createElement("textarea");
-    output.setAttribute("placeholder","output");
-    output.setAttribute("class","outbox");
-    output.setAttribute("id","output");
-    bottomDiv.appendChild(output);
 
-    var button = document.createElement("button");
-    button.innerText = "Submit"
-    bottomDiv.appendChild(button);
+function getRequestInterval(mainCodeId)
+{
+    var request = new XMLHttpRequest();
+
+    request.open('GET',`https://codequotient.com/api/codeResult/${mainCodeId}`);
+    request.setRequestHeader("Content-Type", "application/json");
+    request.send();
+
+    request.addEventListener('load', function(event)
+    {
+        var mainData = JSON.parse(event.target.responseText)
+        mainData = JSON.parse(mainData.data);
+       
+        if(mainData.output !== '')
+        {
+            outputResult.innerText = mainData.output;
+        }
+        else
+        {
+            outputResult.innerText = mainData.errors;
+        }
+    })
 }
-
-init();
-
-console.log("hi");
