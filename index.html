@@ -7,35 +7,28 @@
     <title>Online-IDE</title>
     <link rel="stylesheet" href="./style.css">
 </head>
-<body>
+    <body>
         <h1 class="heading">Online-IDE</h1>
-        <div class="mainHeading">
-            <label>Language:</label>
-            <select name="lang" id="languages" style="width: 100px; height: 20px" >
-                <option selected disabled hidden>Language</option>
-                <option value="0">Python</option>
-                <option value="4">Javascript</option>
-                <option value="7">C</option>
-                <option value="77">CPP</option>
-                <option value="8">Java</option>
-            </select>
-        </div>
-
-        <br>
-
-        <div class="compilebox">
-            <textarea id="textbox" rows="15" cols="90" placeholder="# Enter your code here."  ></textarea>
+        <div class="box">
+      <label for="language">Language:</label>
+      <select name="language" id="lang">
+      <option selected disabled hidden>Language</option>
+      <option value="0">Python</option>
+      <option value="4">JavaScript</option>
+      <option value="7">C</option>
+      <option value="77">C++</option>
+      <option value="8">Java</option>
+    </select>
+    <textarea id="codeArea" placeholder="# Enter your code here."></textarea>
     
-            <div id="output">
-                <h4 id="outputResult"></h4>
-            </div>
-            
-        </div>
+    </div>
+    <div class="output">
+      <textarea id="output" placeholder="Output"></textarea>
+      <button id="compile">Submit</button>
+    </div>
 
-        <button type="button" id="Submit" style="height: 40px; width: 150px;">Compile</button>
-
-        <script src="script.js"></script>
+        <script src="app.js"></script>
 
     </body>
-<script src="app.js"></script>
+
 </html>
